@@ -18,8 +18,8 @@ jobs:
     plan:
       - get: elasticsearch
         trigger: true
-      - task: 'gradle --info compileJava compileTestJava precommit check'
-        file: elasticsearch/ci/intake-build.yml
+      - task: gradle check
+        file: elasticsearch/ci/tasks/build-intake.yml
 
   - name: periodic-tests
     plan:
@@ -27,5 +27,5 @@ jobs:
         passed: [intake-test]
       - get: hourly-timer
         trigger: true
-      - task: full-tests
-        file: elasticsearch/ci/build.yml
+      - task: gradle build
+        file: elasticsearch/ci/tasks/build.yml

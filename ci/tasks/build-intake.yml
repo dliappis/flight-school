@@ -12,4 +12,4 @@ inputs:
   - name: elasticsearch
 
 run:
-  path: ./elasticsearch/ci/test.sh
+  path: ./elasticsearch/ci/scripts/test.sh
