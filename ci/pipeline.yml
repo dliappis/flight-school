@@ -24,6 +24,7 @@ jobs:
   - name: periodic-tests
     plan:
       - get: elasticsearch
+        passed: [intake-tests]
       - get: my-timer
         trigger: true
       - task: tests
