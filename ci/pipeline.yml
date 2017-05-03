@@ -39,6 +39,6 @@ jobs:
         - task: linux
           file: elasticsearch/ci/tasks/build-linux.yml
         - task: darwin
-          file: elasticsearch/ci/tasks/build-darwin.yml
+          file: elasticsearch/ci/tasks/build-linux.yml
         - task: windows
-          file: elasticsearch/ci/tasks/build-windows.yml
+          file: elasticsearch/ci/tasks/build-linux.yml
