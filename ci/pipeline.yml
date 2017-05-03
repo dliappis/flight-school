@@ -10,7 +10,7 @@ resources:
   - name: hourly-timer
     type: time
     source:
-      interval: 2m
+      interval: 1h
 
 
 jobs:
