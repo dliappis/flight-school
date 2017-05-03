@@ -15,6 +15,13 @@ resources:
       access_token: {{pull-requests-access-token}}
       base: master
 
+  - name: x-pack-elasticsearch
+    type: pull-request
+    source:
+      repo: elasticdog/gateway
+      access_token: {{pull-requests-access-token}}
+      base: master
+
 
 jobs:
   - name: elasticsearch
@@ -37,4 +44,26 @@ jobs:
           put: elasticsearch
           params:
             path: elasticsearch
+            status: failure
+
+  - name: x-pack-elasticsearch
+    plan:
+      - get: x-pack-elasticsearch
+        trigger: true
+        version: every
+      - put: x-pack-elasticsearch
+        params:
+          path: x-pack-elasticsearch
+          status: pending
+      - task: unit tests
+        file: x-pack-elasticsearch/ci/tasks/build.yml
+        on_success:
+          put: x-pack-elasticsearch
+          params:
+            path: x-pack-elasticsearch
+            status: success
+        on_failure:
+          put: x-pack-elasticsearch
+          params:
+            path: x-pack-elasticsearch
             status: failure
