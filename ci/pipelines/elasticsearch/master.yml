@@ -59,3 +59,15 @@ jobs:
           trigger: true
       - task: integration
         file: x-pack-elasticsearch/ci/tasks/build.yml
+
+  - name: x-pack-periodic
+    plan:
+      - aggregate:
+        - get: x-pack-elasticsearch
+          passed: [x-pack]
+        - get: elasticsearch
+          passed: [x-pack]
+        - get: 1h
+          trigger: true
+      - task: integration
+        file: x-pack-elasticsearch/ci/tasks/build.yml
