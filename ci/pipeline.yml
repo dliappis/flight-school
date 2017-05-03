@@ -7,11 +7,24 @@ resources:
       uri: https://github.com/elasticdog/flight-school
     branch: master
 
+  - name: my-timer
+    type: time
+    source:
+      interval: 2m
+
 
 jobs:
   - name: intake-tests
     plan:
       - get: elasticsearch
+        trigger: true
+      - task: tests
+        file: elasticsearch/ci/build.yml
+
+  - name: periodic-tests
+    plan:
+      - get: elasticsearch
+      - get: my-timer
         trigger: true
       - task: tests
         file: elasticsearch/ci/build.yml
