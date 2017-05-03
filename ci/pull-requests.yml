@@ -1,0 +1,40 @@
+---
+
+resource_types:
+  - name: pull-request
+    type: docker-image
+    source:
+      repository: jtarchie/pr
+
+
+resources:
+  - name: elasticsearch
+    type: pull-request
+    source:
+      repo: elasticdog/flight-school
+      access_token: {{pull-requests-access-token}}
+      base: master
+
+
+jobs:
+  - name: elasticsearch
+    plan:
+      - get: elasticsearch
+        trigger: true
+        version: every
+      - put: elasticsearch
+        params:
+          path: elasticsearch
+          status: pending
+      - task: gradle build
+        file: elasticsearch/ci/tasks/build-linux.yml
+        on_success:
+          put: elasticsearch
+          params:
+            path: elasticsearch
+            status: success
+        on_failure:
+          put: elasticsearch
+          params:
+            path: elasticsearch
+            status: failure
