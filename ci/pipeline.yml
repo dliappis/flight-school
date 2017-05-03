@@ -7,25 +7,25 @@ resources:
       uri: https://github.com/elasticdog/flight-school
     branch: master
 
-  - name: my-timer
+  - name: hourly-timer
     type: time
     source:
       interval: 2m
 
 
 jobs:
-  - name: intake-tests
+  - name: intake-test
     plan:
       - get: elasticsearch
         trigger: true
-      - task: tests
-        file: elasticsearch/ci/build.yml
+      - task: 'gradle --info compileJava compileTestJava precommit check'
+        file: elasticsearch/ci/intake-build.yml
 
   - name: periodic-tests
     plan:
       - get: elasticsearch
-        passed: [intake-tests]
-      - get: my-timer
+        passed: [intake-test]
+      - get: hourly-timer
         trigger: true
-      - task: tests
+      - task: full-tests
         file: elasticsearch/ci/build.yml
