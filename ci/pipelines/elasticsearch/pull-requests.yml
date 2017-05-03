@@ -8,6 +8,12 @@ resource_types:
 
 
 resources:
+  - name: elasticsearch-master
+    type: git
+    source:
+      uri: https://github.com/elasticdog/flight-school
+    branch: master
+
   - name: elasticsearch
     type: pull-request
     source:
@@ -48,9 +54,12 @@ jobs:
 
   - name: x-pack-elasticsearch
     plan:
-      - get: x-pack-elasticsearch
-        trigger: true
-        version: every
+      - aggregate:
+        - get: elasticsearch
+          resource: elasticsearch-master
+        - get: x-pack-elasticsearch
+          trigger: true
+          version: every
       - put: x-pack-elasticsearch
         params:
           path: x-pack-elasticsearch
