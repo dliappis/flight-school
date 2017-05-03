@@ -14,17 +14,17 @@ resources:
 
 
 jobs:
-  - name: intake-test
+  - name: elasticsearch-intake
     plan:
       - get: elasticsearch
         trigger: true
       - task: gradle check
         file: elasticsearch/ci/tasks/build-intake.yml
 
-  - name: periodic-tests
+  - name: elasticsearch-periodic
     plan:
       - get: elasticsearch
-        passed: [intake-test]
+        passed: [elasticsearch-intake]
       - get: hourly-timer
         trigger: true
       - task: gradle build
@@ -33,7 +33,7 @@ jobs:
   - name: os-compatibility-tests
     plan:
       - get: elasticsearch
-        passed: [intake-test]
+        passed: [elasticsearch-intake]
         trigger: true
       - aggregate:
         - task: linux
