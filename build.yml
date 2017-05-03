@@ -9,7 +9,7 @@ image_resource:
     tag: 2.3.0
 
 inputs:
-  - name: flight-school
+  - name: elasticsearch
 
 run:
-  path: ./flight-school/ci/test.sh
+  path: ./elasticsearch/ci/test.sh
