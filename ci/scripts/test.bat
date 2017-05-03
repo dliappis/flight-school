@@ -1,1 +1,1 @@
-echo "faking a windows test"
+echo "faking a 5.x branch windows test"
