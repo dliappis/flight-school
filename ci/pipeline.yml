@@ -28,4 +28,17 @@ jobs:
       - get: hourly-timer
         trigger: true
       - task: gradle build
-        file: elasticsearch/ci/tasks/build.yml
+        file: elasticsearch/ci/tasks/build-linux.yml
+
+  - name: os-compatibility-tests
+    plan:
+      - get: elasticsearch
+        passed: [intake-test]
+        trigger: true
+      - aggregate:
+        - task: linux
+          file: elasticsearch/ci/tasks/build-linux.yml
+        - task: darwin
+          file: elasticsearch/ci/tasks/build-darwin.yml
+        - task: windows
+          file: elasticsearch/ci/tasks/build-windows.yml

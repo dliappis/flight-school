@@ -1,0 +1,9 @@
+---
+
+platform: windows
+
+inputs:
+  - name: elasticsearch
+
+run:
+  path: ./elasticsearch/ci/scripts/test.bat

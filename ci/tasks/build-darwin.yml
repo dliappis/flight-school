@@ -1,0 +1,9 @@
+---
+
+platform: darwin
+
+inputs:
+  - name: elasticsearch
+
+run:
+  path: ./elasticsearch/ci/scripts/test.sh
