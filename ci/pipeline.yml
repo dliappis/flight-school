@@ -1,16 +1,17 @@
 ---
 
 resources:
-  - name: flight-school
+  - name: elasticsearch
     type: git
     source:
       uri: https://github.com/elasticdog/flight-school
     branch: master
 
+
 jobs:
-  - name: test-app
+  - name: intake-tests
     plan:
-      - get: flight-school
+      - get: elasticsearch
         trigger: true
       - task: tests
-        file: flight-school/build.yml
+        file: elasticsearch/ci/build.yml
