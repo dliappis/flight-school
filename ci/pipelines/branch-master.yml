@@ -27,13 +27,13 @@ groups:
 
 
 resources:
-  - name: elasticsearch
+  - name: elasticsearch:master
     type: git
     source:
       uri: https://github.com/elasticdog/flight-school
       branch: 'master'
 
-  - name: x-pack-elasticsearch
+  - name: x-pack-elasticsearch:master
     type: git
     source:
       uri: https://github.com/elasticdog/gateway
@@ -49,6 +49,7 @@ jobs:
   - name: elasticsearch-intake
     plan:
       - get: elasticsearch
+        resource: elasticsearch:master
         trigger: true
       - task: gradle check
         file: elasticsearch/ci/tasks/build-intake.yml
@@ -56,6 +57,7 @@ jobs:
   - name: elasticsearch-os-compatibility
     plan:
       - get: elasticsearch
+        resource: elasticsearch:master
         passed: [elasticsearch-intake]
         trigger: true
       - aggregate:
@@ -69,6 +71,7 @@ jobs:
   - name: elasticsearch-periodic
     plan:
       - get: elasticsearch
+        resource: elasticsearch:master
         passed: [elasticsearch-intake]
       - get: 1h
         trigger: true
@@ -79,9 +82,11 @@ jobs:
     plan:
       - aggregate:
         - get: elasticsearch
+          resource: elasticsearch:master
           trigger: true
           passed: [elasticsearch-os-compatibility]
         - get: x-pack-elasticsearch
+          resource: x-pack-elasticsearch:master
           trigger: true
       - task: integration
         file: x-pack-elasticsearch/ci/tasks/build.yml
@@ -89,9 +94,11 @@ jobs:
   - name: x-pack-elasticsearch-periodic
     plan:
       - aggregate:
-        - get: x-pack-elasticsearch
-          passed: [x-pack-elasticsearch]
         - get: elasticsearch
+          resource: elasticsearch:master
+          passed: [x-pack-elasticsearch]
+        - get: x-pack-elasticsearch
+          resource: x-pack-elasticsearch:master
           passed: [x-pack-elasticsearch]
         - get: 1h
           trigger: true

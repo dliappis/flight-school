@@ -94,11 +94,11 @@ jobs:
   - name: x-pack-elasticsearch-periodic
     plan:
       - aggregate:
-        - get: x-pack-elasticsearch
-          resource: x-pack-elasticsearch:5.x
-          passed: [x-pack-elasticsearch]
         - get: elasticsearch
           resource: elasticsearch:5.x
+          passed: [x-pack-elasticsearch]
+        - get: x-pack-elasticsearch
+          resource: x-pack-elasticsearch:5.x
           passed: [x-pack-elasticsearch]
         - get: 1h
           trigger: true
