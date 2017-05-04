@@ -4,7 +4,6 @@ groups:
   - name: elasticsearch
     jobs:
       - elasticsearch
-      - x-pack-elasticsearch
 
   - name: logstash
     jobs: []
@@ -14,6 +13,10 @@ groups:
 
   - name: beats
     jobs: []
+
+  - name: x-pack
+    jobs:
+      - x-pack-elasticsearch
 
 
 resource_types:
