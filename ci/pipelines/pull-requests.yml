@@ -1,5 +1,21 @@
 ---
 
+groups:
+  - name: elasticsearch
+    jobs:
+      - elasticsearch
+      - x-pack-elasticsearch
+
+  - name: logstash
+    jobs: []
+
+  - name: kibana
+    jobs: []
+
+  - name: beats
+    jobs: []
+
+
 resource_types:
   - name: pull-request
     type: docker-image
