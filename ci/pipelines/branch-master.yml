@@ -42,7 +42,7 @@ resources:
   - name: 1h
     type: time
     source:
-      interval: 1h
+      interval: 2m
 
 
 jobs:
