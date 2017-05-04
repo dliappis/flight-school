@@ -31,13 +31,13 @@ resources:
     type: git
     source:
       uri: https://github.com/elasticdog/flight-school
-      branch: 5.x
+      branch: '5.x'
 
   - name: x-pack-elasticsearch:5.x
     type: git
     source:
       uri: https://github.com/elasticdog/gateway
-      branch: 5.x
+      branch: '5.x'
 
   - name: 1h
     type: time

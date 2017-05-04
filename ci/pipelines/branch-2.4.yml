@@ -29,13 +29,13 @@ resources:
     type: git
     source:
       uri: https://github.com/elasticdog/flight-school
-      branch: 2.4
+      branch: '2.4'
 
   - name: x-pack:2.4
     type: git
     source:
       uri: https://github.com/elasticdog/gateway
-      branch: 2.4
+      branch: '2.4'
 
 
 jobs:
