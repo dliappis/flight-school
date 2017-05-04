@@ -4,10 +4,8 @@ groups:
   - name: elasticsearch
     jobs:
       - elasticsearch-intake
-      - elasticsearch-periodic
       - elasticsearch-os-compatibility
-      - x-pack-elasticsearch
-      - x-pack-elasticsearch-periodic
+      - elasticsearch-periodic
 
   - name: logstash
     jobs: []
@@ -17,6 +15,12 @@ groups:
 
   - name: beats
     jobs: []
+
+  - name: x-pack
+    jobs:
+      - elasticsearch-os-compatibility
+      - x-pack-elasticsearch
+      - x-pack-elasticsearch-periodic
 
   - name: release
     jobs: []
